@@ -2,7 +2,7 @@
     min-width:28em;
     max-width:30em;
     min-height:28vh;
-    background-color:#1D1D1D;
+    background-color:#1D1D1D !important;
     color:white;
 }
 .cC > *{
