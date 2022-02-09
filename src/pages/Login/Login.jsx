@@ -15,6 +15,7 @@ import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import './Login.css';
 import { StepVerification } from '../Steps/StepVerification';
+import { StepError } from '../Steps/StepError';
 
 export const Login = () => { 
     let history = useHistory();
@@ -26,6 +27,7 @@ export const Login = () => {
         0:{component:StepPhoneEmail,ext:<CTabs tabs={[<LocalPhoneIcon/>,<EmailIcon/>]}/>},
         1:{component:StepOtp,     ext:<></>},
         2:{component:StepVerification,ext:<></>},
+        3:{component:StepError,ext:<></>},
     }
 
     const Step=steps[step];

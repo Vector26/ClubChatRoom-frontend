@@ -5,12 +5,16 @@ import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import Box from '@mui/material/Box';
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import { setOtpSender } from '../../actions/IRActions';
 export const StepPhoneEmail = ({onNext}) => { 
+    const dispatch=useDispatch();
     const isPhone=useSelector((state)=> state.iR.isPhone);
     const onSubmit=()=>{
         if(isPhone){
             console.log("Phone OTP");
+            const phone=document.getElementById('phone').value.toString();
+            dispatch(setOtpSender(phone));
         }
         else{
             console.log("Email OTP");
@@ -32,6 +36,7 @@ const Email= ()=>{
                 <Typography>Enter Your Email</Typography> 
             </Box>
             <TextField
+                id='email'
                 className='TF'
                 sx={{color:"white"}}
                 InputProps={{
@@ -53,6 +58,7 @@ const Phone= ()=>{
             </Box>
             <TextField
                 className='TF'
+                id='phone'
                 sx={{color:"white"}}
                 InputProps={{
                     startAdornment: <InputAdornment position="start"><PhoneIphoneIcon sx={{color:'white'}}/></InputAdornment>,

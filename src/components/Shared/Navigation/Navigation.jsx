@@ -11,32 +11,54 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
+import {useDispatch, useSelector} from 'react-redux';
+import { logout } from '../../../actions/IRActions';
+import { logout as LOGOUT_R } from '../../../http';
+import { unsetProfile } from '../../../actions/profileActions';
 
-const pages = [];
-const settings = ['Profile', 'Account', 'Dashboard', 'Logout'];
 
 const Navigation = () => {
+  const dispatch=useDispatch();
   const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [auth, setAuth] = React.useState(false);
+  const pfp=useSelector((state)=> state.Profile.PFP);
+  const name=useSelector((state)=> state.Profile.Name);
+  const username=useSelector((state)=> state.Profile.Username);
+  const Auth=useSelector((state)=> state.iR.Auth);
+  const [auth, setAuth] = React.useState(Auth);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
-
+  
+  React.useEffect(() => {
+    setAuth(Auth);
+  }, [Auth]);
+  
+  
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
-
+  
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
   };
-
+  
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
-
+  
+  const Logout=()=>{
+    LOGOUT_R().then(()=>{
+      dispatch(logout());
+      dispatch(unsetProfile());
+      console.log("Logged Out");
+    });
+  }
+  const pages = [{name:'Feed',action:handleCloseUserMenu},{name:'About',action:handleCloseUserMenu}];
+  const settings = [{name:'Profile',action:handleCloseUserMenu},{name:'Logout',action:Logout}];
+  
   return (
-    <AppBar position="static" sx={{backgroundColor:'rgb(27, 27, 27)'}}>
+    <AppBar position="static" sx={{backgroundColor:'#121212',padding:'0 2em'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters >
           <Typography
@@ -78,8 +100,8 @@ const Navigation = () => {
               }}
             >
               {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                <MenuItem key={page.name} onClick={page.action}>
+                  <Typography textAlign="center" sx={{color:'black'}}>{page.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -94,11 +116,11 @@ const Navigation = () => {
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
             {pages.map((page) => (
               <Button
-                key={page}
-                onClick={handleCloseNavMenu}
+                key={page.name}
+                onClick={page.action}
                 sx={{ my: 2, color: 'white', display: 'block' }}
               >
-                {page}
+                {page.name}
               </Button>
             ))}
           </Box>
@@ -106,11 +128,11 @@ const Navigation = () => {
           {auth && <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                <Avatar alt="Remy Sharp" src={pfp} />
               </IconButton>
             </Tooltip>
             <Menu
-              sx={{ mt: '45px' }}
+              sx={{ mt: '45px'}}
               id="menu-appbar"
               anchorEl={anchorElUser}
               anchorOrigin={{
@@ -126,8 +148,8 @@ const Navigation = () => {
               onClose={handleCloseUserMenu}
             >
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
+                <MenuItem key={setting.name} sx={{}} onClick={setting.action}>
+                  <Typography textAlign="center" sx={{color:'black'}}>{setting.name}</Typography>
                 </MenuItem>
               ))}
             </Menu>

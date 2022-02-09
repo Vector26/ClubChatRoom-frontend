@@ -14,7 +14,7 @@ import { MsgBox } from '../../components/Shared/MsgBox/MsgBox';
 import EmailIcon from '@mui/icons-material/Email';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import './Register.css';
-import { StepVerification } from '../Steps/StepVerification';
+import { StepRegister } from '../Steps/StepRegister';
 
 export const Register = () => {
     let history = useHistory();
@@ -26,7 +26,7 @@ export const Register = () => {
         0:{component:StepName,    ext:<></>},
         1:{component:StepAvatar,  ext:<></>},
         2:{component:StepUsername,ext:<></>},
-        3:{component:StepVerification,ext:<></>},
+        3:{component:StepRegister,ext:<></>},
     }
 
     const Step=steps[step];

@@ -6,7 +6,7 @@ export const MsgBox = (props) => {
   return <>
         <Box className="cont">
             {props.extra}
-            <Box className="banner">
+            <Box className="banner" style={props.style}>
                 {props.children}
             </Box>
         </Box>

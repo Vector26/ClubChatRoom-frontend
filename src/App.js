@@ -5,13 +5,18 @@ import { Home } from './pages/Home/Home';
 import Navigation from './components/Shared/Navigation/Navigation';
 import { Register } from './pages/Register/Register';
 import { Login } from './pages/Login/Login';
+import { Rooms } from './pages/Rooms/Rooms';
 import { useState } from 'react';
+import useLoading from './hooks/useLoading';
+import { useSelector } from 'react-redux';
 const AUTH=false;
-const USER={activated:true};
+const USER={activated:false};
 
 function App() {
-  return (
-    <div className="App">
+  const {Loading}=useLoading();
+
+  return Loading ? ( 'Loading...'):
+    (<div className="App">
       <BrowserRouter>
         <Navigation/>
         <Switch>
@@ -25,7 +30,7 @@ function App() {
             <Register/>
           </SemiProtectedRoute>
           <ProtectedRoute path="/rooms" exact>
-            <Register/>
+            <Rooms/>
           </ProtectedRoute>
         </Switch>
       </BrowserRouter>
@@ -34,8 +39,9 @@ function App() {
 }
 
 function GuestRoute({children,...rest}) {
-  const [isAuth, setisAuth] = useState(AUTH);
-  const [User, setUser] = useState(USER);
+  let User=useSelector((state)=> state.iR.user);
+  let isAuth=useSelector((state)=> state.iR.Auth);
+  console.log(User);
   return <Route
     render={({location})=>{
       return (
@@ -59,8 +65,8 @@ function GuestRoute({children,...rest}) {
 }
 
 function SemiProtectedRoute({children,...rest}) {
-  const [isAuth, setisAuth] = useState(AUTH);
-  const [User, setUser] = useState(USER);
+  let User=useSelector((state)=> state.iR.user);
+  let isAuth=useSelector((state)=> state.iR.Auth);
   return <Route
     render={({location})=>{
       return (
@@ -84,8 +90,8 @@ function SemiProtectedRoute({children,...rest}) {
 }
 
 function ProtectedRoute({children,...rest}) {
-  const [isAuth, setisAuth] = useState(AUTH);
-  const [User, setUser] = useState(USER);
+  let User=useSelector((state)=> state.iR.user);
+  let isAuth=useSelector((state)=> state.iR.Auth);
   return <Route
     render={({location})=>{
       return (
