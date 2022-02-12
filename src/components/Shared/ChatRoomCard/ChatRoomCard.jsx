@@ -11,23 +11,24 @@ import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import './ChatRoomCard.css'
 
 export default function ChatRoomCard({data}) {
+    console.log(data);
   return (
     <Card className="card">
       <CardContent className='cC'>
         <Typography variant="h6" align="left">
-        {data.title}
+        {data.topic}
         </Typography>
         <Box sx={{display:'flex',padding:'1.5em'}}>
             <AvatarGroup max={3} spacing='small'>
-                {data.speakers.map((speaker)=>{
-                    return (<Avatar alt={speaker.name} src={speaker.pfp} />)
+                {data.speakers.map((speaker,key)=>{
+                    return (<Avatar key={key} alt={speaker.name} src={speaker.pfp} />)
                 })}
             </AvatarGroup>
         <Box className="speakers">
-            {data.speakers.map((speaker)=>{
+            {data.speakers.map((speaker,key)=>{
                     return (
-                    <Box className="speakersContainer">
-                        <Typography variant="subtitle" align="left" gutterBottom>
+                    <Box key={key} className="speakersContainer">
+                        <Typography key={key} variant="subtitle" align="left" gutterBottom>
                             {speaker.name}
                         </Typography>
                         <ChatBubbleIcon/>
@@ -41,7 +42,7 @@ export default function ChatRoomCard({data}) {
         <Button>Join Room</Button>
         <Box sx={{display:'flex',backgroundColor:'rgb(100,100,100)',padding:'0.75em',borderRadius:'1em'}}>
             <Typography variant="subtitle" align="left" style={{ fontSize: 10 }}>
-                {data.listeners}
+                45
             </Typography>
             <PermIdentityIcon style={{ fontSize: 10 }}/>
         </Box>

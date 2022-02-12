@@ -58,7 +58,7 @@ const Navigation = () => {
   const settings = [{name:'Profile',action:handleCloseUserMenu},{name:'Logout',action:Logout}];
   
   return (
-    <AppBar position="static" sx={{backgroundColor:'#121212',padding:'0 2em'}}>
+    <AppBar position="static" sx={{backgroundColor:'#121212',padding:'1em 2em'}}>
       <Container maxWidth="xl">
         <Toolbar disableGutters >
           <Typography

@@ -2,26 +2,30 @@ import axios from "axios";
 
 const api=axios.create({
     baseURL:process.env.REACT_APP_BASE_URL,
+    url:process.env.REACT_APP_BASE_URL,
     withCredentials:true,
     headers:{
         'Content-type':'application/json',
         'Accept':'application/json'
     }
 })
-
 // List of endpoints
 
 export const sendOtp=async (data)=>{return await api.post('/api/send-otp',data)}
 export const verifyOtp=async (data)=>{return await api.post('/api/verify-otp',data)}
 export const activate=async (data)=>{return await api.post('/api/activate',data)}
 export const logout=async ()=>{return await api.post('/api/logout')}
+export const createRoom=async (data)=>{return await api.post('/api/rooms',data)}
+export const getRooms=async ()=>{return api.get('/api/rooms')}
 
 
 // Intercepters
 api.interceptors.response.use((config)=>{
+        // console.log(config);
         return config
     },
     async (error)=>{
+        // console.log(error);
         const origReq=error.config;
         if(error.response.status=== 401 && origReq && !origReq._isRetry)
         {

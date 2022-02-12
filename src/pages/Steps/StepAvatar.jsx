@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { setPFP } from '../../actions/profileActions';
 export const StepAvatar = ({onNext}) => {
-  const [pfp, setpfp] = useState(null);
+  const [pfp, setpfp] = useState("");
   const dispatch=useDispatch();
   const handleChange=(e)=>{
       const file=e.target.files[0];

@@ -1,11 +1,23 @@
 import { Box, Button, FormControl, IconButton, InputAdornment, OutlinedInput, TextField, Typography } from '@mui/material';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ChatRoomCard from '../../components/Shared/ChatRoomCard/ChatRoomCard';
 import SearchIcon from '@mui/icons-material/Search';
 import './Rooms.css'
+import {getRooms} from '../../http/index';
 import CRDB from '../../components/Shared/CreateRoomDialogueBox.jsx/CRDB';
+// import axios from 'axios';
 export const Rooms = () => {
     const [open, setopen] = useState(false);
+    const [Rooms, setRooms] = useState([]);
+    useEffect(async ()=>{
+        // console.log("nonono",process.env.REACT_APP_BASE_URL); 
+        getRooms()
+        .then((res)=>{
+            console.log(res.data);
+            setRooms(res.data);
+            console.log(Rooms);
+        })
+    },[]);
     const data={
         title:"Which Frontend framework is the best",
         speakers:[
@@ -44,18 +56,9 @@ export const Rooms = () => {
                 <CRDB open={open} onClose={close}/>
             </Box>
             <Box className="Feed">
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
-                <ChatRoomCard data={data}/>
+                {Rooms.map((room)=>{
+                   return <ChatRoomCard data={room}/>;
+                })}
             </Box>
         </Box>
     </>;

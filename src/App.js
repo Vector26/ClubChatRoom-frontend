@@ -6,6 +6,7 @@ import Navigation from './components/Shared/Navigation/Navigation';
 import { Register } from './pages/Register/Register';
 import { Login } from './pages/Login/Login';
 import { Rooms } from './pages/Rooms/Rooms';
+import {Room} from './pages/Room/Room';
 import { useState } from 'react';
 import useLoading from './hooks/useLoading';
 import { useSelector } from 'react-redux';
@@ -31,6 +32,9 @@ function App() {
           </SemiProtectedRoute>
           <ProtectedRoute path="/rooms" exact>
             <Rooms/>
+          </ProtectedRoute>
+          <ProtectedRoute path="/room/:id">
+            <Room/>
           </ProtectedRoute>
         </Switch>
       </BrowserRouter>
