@@ -8,7 +8,7 @@ export const Room = () => {
     const {id:roomId}=useParams();
     const user=useSelector((state)=>state.iR.user);
     user.profile=useSelector((state)=>state.Profile);
-    const {clients,provideRef}=useWebRTC(roomId,user);
+    let {clients,provideRef}=useWebRTC(roomId,user);
     console.log(clients);
     
 
