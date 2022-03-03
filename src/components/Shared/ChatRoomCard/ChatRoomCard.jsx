@@ -9,8 +9,10 @@ import Typography from '@mui/material/Typography';
 import { Avatar, AvatarGroup } from '@mui/material';
 import PermIdentityIcon from '@mui/icons-material/PermIdentity';
 import './ChatRoomCard.css'
+import { useHistory } from 'react-router-dom';
 
 export default function ChatRoomCard({data}) {
+    let history=useHistory();
     console.log(data);
   return (
     <Card className="card">
@@ -39,7 +41,7 @@ export default function ChatRoomCard({data}) {
         </Box>
       </CardContent>
       <CardActions sx={{justifyContent:'space-between'}}>
-        <Button>Join Room</Button>
+        <Button onClick={()=>{history.push(`/room/${data._id}`)}}>Join Room</Button>
         <Box sx={{display:'flex',backgroundColor:'rgb(100,100,100)',padding:'0.75em',borderRadius:'1em'}}>
             <Typography variant="subtitle" align="left" style={{ fontSize: 10 }}>
                 45

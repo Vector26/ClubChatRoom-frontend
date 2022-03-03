@@ -3,10 +3,11 @@ import React, { useState } from 'react';
 import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt'
 import { Box } from '@mui/system';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setPFP } from '../../actions/profileActions';
 export const StepAvatar = ({onNext}) => {
   const [pfp, setpfp] = useState("");
+  const name=useSelector((state)=>state.Profile.Name);
   const dispatch=useDispatch();
   const handleChange=(e)=>{
       const file=e.target.files[0];
@@ -22,7 +23,7 @@ export const StepAvatar = ({onNext}) => {
     onNext();
   }
   return <>
-    <Typography variant='h6' align='center'>🙉Okay,Hritik Rai!</Typography>
+    <Typography variant='h6' align='center'>🙉Okay,{name}!</Typography>
     <Typography variant='string' align='center'>How's this photo</Typography>
     <Box sx={{display:'flex',justifyContent:'center',width:'100%'}}>
       <Avatar alt="Remy Sharp" src={pfp} sx={{height:'4em',width:'4em',border:'#0077FF solid 0.2em'}} />

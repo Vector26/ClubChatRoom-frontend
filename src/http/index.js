@@ -17,6 +17,7 @@ export const activate=async (data)=>{return await api.post('/api/activate',data)
 export const logout=async ()=>{return await api.post('/api/logout')}
 export const createRoom=async (data)=>{return await api.post('/api/rooms',data)}
 export const getRooms=async ()=>{return api.get('/api/rooms')}
+export const getRoom=async (roomId)=>{return api.get(`/api/room?=${roomId}`)}
 
 
 // Intercepters

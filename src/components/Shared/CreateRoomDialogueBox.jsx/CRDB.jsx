@@ -32,7 +32,7 @@ export default function CRDB(props) {
       .then((res)=>{
         console.log(res);
         onClose();
-        history.push(`/rooms/${res.data._id}`)
+        history.push(`/room/${res.data._id}`)
       })
   }
   return (

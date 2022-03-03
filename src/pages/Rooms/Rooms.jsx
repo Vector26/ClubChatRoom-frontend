@@ -5,10 +5,12 @@ import SearchIcon from '@mui/icons-material/Search';
 import './Rooms.css'
 import {getRooms} from '../../http/index';
 import CRDB from '../../components/Shared/CreateRoomDialogueBox.jsx/CRDB';
+import { useHistory } from 'react-router-dom';
 // import axios from 'axios';
 export const Rooms = () => {
     const [open, setopen] = useState(false);
     const [Rooms, setRooms] = useState([]);
+    let history=useHistory();
     useEffect(async ()=>{
         // console.log("nonono",process.env.REACT_APP_BASE_URL); 
         getRooms()
@@ -18,16 +20,6 @@ export const Rooms = () => {
             console.log(Rooms);
         })
     },[]);
-    const data={
-        title:"Which Frontend framework is the best",
-        speakers:[
-            {name:"Hritik Rai",pfp:"https://mui.com/static/images/avatar/1.jpg"},
-            {name:"Ananya Mishu",pfp:"https://mui.com/static/images/avatar/1.jpg"},
-            {name:"Raghav Tripathi",pfp:"https://mui.com/static/images/avatar/1.jpg"},
-            {name:"Ananya Mishu",pfp:"https://mui.com/static/images/avatar/1.jpg"},
-        ],
-        listeners:45
-    }
 
     const opeN=()=>{
         setopen(true);
