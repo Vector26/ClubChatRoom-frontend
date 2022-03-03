@@ -13,14 +13,18 @@ import { getRoom } from '../../http';
 export const Room = () => {
     const {id:roomId}=useParams();
     const [Room, setRoom] = useState({})
+    const [isMuted, setMuted] = useState(true);
     const user=useSelector((state)=>state.iR.user);
     user.profile=useSelector((state)=>state.Profile);
-    let {clients,provideRef}=useWebRTC(roomId,user);
+    let { clients, provideRef, handleMute }=useWebRTC(roomId,user);
     console.log(clients,"room client log");
     let history=useHistory();
     const handleManualLeave = () => {
         history.push('/rooms')
     };
+    useEffect(() => {
+        handleMute(isMuted, user._id);
+    }, [isMuted]);
     useEffect(async (roomId) => {
         const fetchRoom = async () => {
             console.log(roomId);
@@ -29,7 +33,12 @@ export const Room = () => {
         };
         await fetchRoom(roomId);
     },[]);
-    
+    const handleMuteClick = (clientId) => {
+        if (clientId !== user.id) {
+            return;
+        }
+        setMuted((prev) => !prev);
+    };
 
   return <>
       <Box sx={{display:'flex',justifyContent:'space-between',padding:'1em 3em'}}>
@@ -62,7 +71,7 @@ export const Room = () => {
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     badgeContent={
                         // <SmallAvata alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        <IconButton  sx={{borderRadius:'51%',backgroundColor:'white',padding:'0.1em'}}>
+                        <IconButton onClick={handleMuteClick} sx={{borderRadius:'51%',backgroundColor:'white',padding:'0.1em'}}>
                             <MicIcon sx={{color:'black'}} />
                         </IconButton>
                     }
