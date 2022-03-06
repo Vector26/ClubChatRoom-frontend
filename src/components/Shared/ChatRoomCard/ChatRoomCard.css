@@ -1,9 +1,10 @@
 .card{
-    min-width:28em;
-    max-width:30em;
-    min-height:28vh;
+    /* min-width:28em; */
+    width:30em;
+    max-height: 24em;
     background-color:#1D1D1D !important;
     color:white;
+    padding:0.5em;
 }
 .cC > *{
     margin:0.1em;

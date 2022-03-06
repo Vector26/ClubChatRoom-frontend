@@ -17,7 +17,7 @@ export default function ChatRoomCard({data}) {
   return (
     <Card className="card">
       <CardContent className='cC'>
-        <Typography variant="h6" align="left">
+        <Typography variant="h6" align="left" sx={{height:'3em'}}>
         {data.topic}
         </Typography>
         <Box sx={{display:'flex',padding:'1.5em'}}>
