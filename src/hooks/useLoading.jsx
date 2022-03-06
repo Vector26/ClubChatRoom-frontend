@@ -10,8 +10,10 @@ function useLoading() {
     useEffect(() => {
       (async ()=>{
           try{
+              axios.defaults.withCredentials = true;
               const {data} =await axios.get(`${process.env.REACT_APP_BASE_URL}/api/refresh`,{
-                withCredentials:true
+                withCredentials:true,
+                crossDomain: true
             });
             console.log("hehehe",data);
             dispatch(setUser(data.user));
