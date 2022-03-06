@@ -47,6 +47,7 @@ function GuestRoute({children,...rest}) {
   let isAuth=useSelector((state)=> state.iR.Auth);
   console.log(User);
   return <Route
+    {...rest}
     render={({location})=>{
       return (
         !isAuth ? 
@@ -72,6 +73,7 @@ function SemiProtectedRoute({children,...rest}) {
   let User=useSelector((state)=> state.iR.user);
   let isAuth=useSelector((state)=> state.iR.Auth);
   return <Route
+    {...rest}
     render={({location})=>{
       return (
         !isAuth ? 
@@ -97,6 +99,7 @@ function ProtectedRoute({children,...rest}) {
   let User=useSelector((state)=> state.iR.user);
   let isAuth=useSelector((state)=> state.iR.Auth);
   return <Route
+    {...rest}
     render={({location})=>{
       return (
         !isAuth ? 

@@ -1,7 +1,7 @@
 import react, { useEffect, useState } from "react"
 import { useCallback } from "react";
 import { useRef } from "react";
-import {useStateWithCB as useStateWithCallback} from "./useStateWithCB";
+import {useStateWithCallback} from "./useStateWithCB";
 import socketInit from '../socket';
 import {ACTIONS} from '../RTCActions';
 import freeice from 'freeice';

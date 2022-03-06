@@ -1,25 +1,22 @@
-import React from 'react';
-import { useCallback } from 'react';
-import { useEffect, useState } from "react"
-import { useRef } from 'react';
-export const useStateWithCB = (initialState) => {
-    const [state, setState] = useState(initialState);
-    const cbRef = useRef(null); // init mutable ref container for callbacks
-  
-    const setStateCallback = useCallback((state, cb) => {
-      cbRef.current = cb; // store current, passed callback in ref
-      setState(state);
-    }, []); // keep object reference stable, exactly like `useState`
-  
-    useEffect(() => {
-      // cb.current is `null` on initial render, 
-      // so we only invoke callback on state *updates*
-      if (cbRef.current) {
-        cbRef.current(state);
-        cbRef.current = null; // reset callback after execution
-      }
-    }, [state]);
-  
-    return [state, setStateCallback];
-};
+import { useState, useRef, useEffect, useCallback } from 'react';
+export const useStateWithCallback = (intialState) => {
+    const [state, setState] = useState(intialState);
+    const cbRef = useRef(null);
 
+    const updateState = useCallback((newState, cb) => {
+        cbRef.current = cb;
+
+        setState((prev) =>
+            typeof newState === 'function' ? newState(prev) : newState
+        );
+    }, []);
+
+    useEffect(() => {
+        if (cbRef.current) {
+            cbRef.current(state);
+            cbRef.current = null;
+        }
+    }, [state]);
+
+    return [state, updateState];
+};

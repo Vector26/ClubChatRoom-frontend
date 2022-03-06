@@ -11,13 +11,14 @@ import MicOffIcon from '@mui/icons-material/MicOff';
 import { getRoom } from '../../http';
 
 export const Room = () => {
-    const {id:roomId}=useParams();
     const [Room, setRoom] = useState({})
-    const [isMuted, setMuted] = useState(true);
+    const [isMuted, setMuted] = useState(false);
     const user=useSelector((state)=>state.iR.user);
     user.profile=useSelector((state)=>state.Profile);
+    const {id:roomId}=useParams();
+    //  
     let { clients, provideRef, handleMute }=useWebRTC(roomId,user);
-    console.log(clients,"room client log");
+    //  
     let history=useHistory();
     const handleManualLeave = () => {
         history.push('/rooms')
@@ -25,19 +26,23 @@ export const Room = () => {
     useEffect(() => {
         handleMute(isMuted, user._id);
     }, [isMuted]);
-    useEffect(async (roomId) => {
+    useEffect(async () => {
+         
         const fetchRoom = async () => {
-            console.log(roomId);
+             
             const { data } = await getRoom(roomId);
             setRoom((prev) => data);
         };
         await fetchRoom(roomId);
     },[]);
     const handleMuteClick = (clientId) => {
-        if (clientId !== user.id) {
-            return;
+         
+         
+        if (clientId === user._id) {
+             
+            setMuted((prev) => !prev);
+            console.log(isMuted);
         }
-        setMuted((prev) => !prev);
     };
 
   return <>
@@ -71,8 +76,8 @@ export const Room = () => {
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
                     badgeContent={
                         // <SmallAvata alt="Remy Sharp" src="/static/images/avatar/1.jpg" />
-                        <IconButton onClick={handleMuteClick} sx={{borderRadius:'51%',backgroundColor:'white',padding:'0.1em'}}>
-                            <MicIcon sx={{color:'black'}} />
+                        <IconButton onClick={() =>handleMuteClick(client._id)} sx={{borderRadius:'51%',backgroundColor:'white',padding:'0.1em'}}>
+                            {isMuted ? <MicIcon sx={{color:'black'}} />:<MicOffIcon sx={{color:'black'}} />}
                         </IconButton>
                     }
                     >
