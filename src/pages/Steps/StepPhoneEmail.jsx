@@ -17,15 +17,17 @@ export const StepPhoneEmail = ({onNext}) => {
             dispatch(setOtpSender(phone));
         }
         else{
+            const email=document.getElementById('email').value.toString();
+            dispatch(setOtpSender(email));
             console.log("Email OTP");
         }
         onNext();
     }
     // console.log(isPhone);
     return <>
-            {isPhone ? <Phone/>:<Email/>}
+            {!isPhone ? <Email/>:<Phone/>}
             <Button variant='filled' id='button' onClick={onSubmit}>Next <ArrowRightAltIcon/></Button>
-            <Typography variant="string" align="center">By entering your number, you’re agreeing to our Terms of Service and Privacy Policy. Thanks!</Typography>
+            <Typography variant="string" align="center">We would recommend using Email for OTP, as it has higher success rates .By entering your number/email, you’re agreeing to our Terms of Service and Privacy Policy. Thanks!</Typography>
     </>;
 };
 
@@ -45,6 +47,7 @@ const Email= ()=>{
                 variant="outlined"
                 placeholder='Email'
                 onInput = {(e) =>{
+                    
                 }}
                 />
     </>

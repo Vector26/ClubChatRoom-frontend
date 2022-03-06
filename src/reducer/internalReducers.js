@@ -2,7 +2,7 @@
 
 
 var data = {
-    isPhone:true,
+    isPhone:false,
     Auth:false,
     user:{activated:false}
 };
@@ -16,7 +16,7 @@ var data = {
           case "SET_AUTH":
             return {...state,Auth:true}
           case "SET_OTPSENDER": 
-            const sender=`+91${action.sender}`;
+            const sender=state.isPhone?`+91${action.sender}`:`${action.sender}`;
             return {...state,Sender:sender}
           case "SET_USER": 
             const user=action.user;

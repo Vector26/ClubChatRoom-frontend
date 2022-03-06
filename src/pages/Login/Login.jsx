@@ -24,7 +24,7 @@ export const Login = () => {
         setstep((step+1));
     }
     const steps={
-        0:{component:StepPhoneEmail,ext:<CTabs tabs={[<LocalPhoneIcon/>,<EmailIcon/>]}/>},
+        0:{component:StepPhoneEmail,ext:<CTabs tabs={[<EmailIcon/>,<LocalPhoneIcon/>]}/>},
         1:{component:StepOtp,     ext:<></>},
         2:{component:StepVerification,ext:<></>},
         3:{component:StepError,ext:<></>},
